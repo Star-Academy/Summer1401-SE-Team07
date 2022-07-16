@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Path;
+// import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -85,17 +85,21 @@ public class InvertedIndex {
  
     public static void main(String[] args) {
     	// Can manually add your files to index
-    	String[] filenames = {"file2.txt", "file3.txt"};
-    	// String[] wordsToSearch = {};
     	Scanner scn = new Scanner(System.in);
-    	System.out.println();
+        
+        System.out.println("please enter a folder to search at (leave blank for default folder):");
+    	String  folder_path = scn.nextLine();
+        if (folder_path==""){
+            folder_path=Paths.get(".","Summer1401-SE-Team07","Files").toString();
+        }
+        File[] files = new File(folder_path).listFiles();
+        
+    	System.out.println("please enter a query to search for:");
     	String  word = scn.nextLine();
         try {
             InvertedIndex idx = new InvertedIndex();
-            for (int i = 0; i < filenames.length; i++) {
-                Path p = Paths.get(".","Summer1401-SE-Team07","Files",filenames[i]);
-
-                idx.indexFile(new File(p.toString()));
+            for (File file: files) {
+                idx.indexFile(file);
             }
             idx.search(Arrays.asList(word));
         } catch (Exception e) {
