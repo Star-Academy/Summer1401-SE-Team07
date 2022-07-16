@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -34,7 +35,7 @@ public class InvertedIndex {
  
     Map<String, List<Tuple>> index = new HashMap<String, List<Tuple>>();
     
-    List<String> files = Arrays.asList("file1.txt");
+    List<String> files = new ArrayList<String>();
  
     public void indexFile(File file) throws IOException {
         int fileno = files.indexOf(file.getPath());
@@ -49,8 +50,7 @@ public class InvertedIndex {
                 .readLine()) {
             for (String _word : line.split("\\W+")) {
                 String word = _word.toLowerCase();
-                for (char c: blacklist)
-                word = word.replace(c, '\0');
+                for (char c: blacklist) word = word.replace(c, '\0');
                 pos++;
                 if (stopwords.contains(word))
                     continue;
@@ -83,14 +83,14 @@ public class InvertedIndex {
  
     public static void main(String[] args) {
     	// Can manually add your files to index
-    	String[] filenames = {"file2.txt", "file3.txt"};
+    	String[] filenames = {"D:\\Taha-PC\\eclipse-workspace\\Star Practices\\src\\se01\\file2.txt", "D:\\Taha-PC\\eclipse-workspace\\Star Practices\\src\\se01\\file3.txt"};
     	// String[] wordsToSearch = {};
     	Scanner scn = new Scanner(System.in);
     	System.out.println();
     	String  word = scn.nextLine();
         try {
             InvertedIndex idx = new InvertedIndex();
-            for (int i = 1; i < filenames.length; i++) {
+            for (int i = 0; i < filenames.length; i++) {
                 idx.indexFile(new File(filenames[i]));
             }
             idx.search(Arrays.asList(word));
@@ -102,7 +102,7 @@ public class InvertedIndex {
  
     private class Tuple {
         private int fileno;
-        private int position; // @TODO: Has to be implemented later on
+        private int position;
  
         public Tuple(int fileno, int position) {
             this.fileno = fileno;
