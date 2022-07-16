@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,7 +38,7 @@ public class InvertedIndex {
     Map<String, List<Tuple>> index = new HashMap<String, List<Tuple>>();
     
     List<String> files = new ArrayList<String>();
- 
+
     public void indexFile(File file) throws IOException {
         int fileno = files.indexOf(file.getPath());
         if (fileno == -1) {
@@ -83,7 +85,7 @@ public class InvertedIndex {
  
     public static void main(String[] args) {
     	// Can manually add your files to index
-    	String[] filenames = {"D:\\Taha-PC\\eclipse-workspace\\Star Practices\\src\\se01\\file2.txt", "D:\\Taha-PC\\eclipse-workspace\\Star Practices\\src\\se01\\file3.txt"};
+    	String[] filenames = {"file2.txt", "file3.txt"};
     	// String[] wordsToSearch = {};
     	Scanner scn = new Scanner(System.in);
     	System.out.println();
@@ -91,7 +93,9 @@ public class InvertedIndex {
         try {
             InvertedIndex idx = new InvertedIndex();
             for (int i = 0; i < filenames.length; i++) {
-                idx.indexFile(new File(filenames[i]));
+                Path p = Paths.get(".","Summer1401-SE-Team07","Files",filenames[i]);
+
+                idx.indexFile(new File(p.toString()));
             }
             idx.search(Arrays.asList(word));
         } catch (Exception e) {
