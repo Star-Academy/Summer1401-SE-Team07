@@ -1,5 +1,7 @@
 package se01;
 
+import java.util.Arrays;
+import java.util.List;
 
 public class Tokenizer {
     // Words that are used too often in english and take too much storage to index,
