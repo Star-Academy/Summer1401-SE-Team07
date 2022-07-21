@@ -17,15 +17,17 @@ public class Main {
         if (folder_path == "") {
             folder_path = Paths.get(".", "Summer1401-SE-Team07", "Files").toString(); // creating the default folder path
         }
-        File files = new File(folder_path);
+        File mainDir = new File(folder_path);
 
         System.out.println("please enter a query to search for:");
         String Query = scn.nextLine();
 
 
         // creating the tokens and revers index
-        FileReaderClass Read_Files = new FileReaderClass(files);
-        InvertedIndex invertedIndex = new InvertedIndex(Read_Files.get_tokens(), Read_Files.get_file_count());
+        FileReaderClass Read_Files = new FileReaderClass(mainDir);
+        var words = Read_Files.getWords();
+        Tokenizer tokenizer = new Tokenizer(words);
+        InvertedIndex invertedIndex = new InvertedIndex(tokenizer.getTokens(), Read_Files.getFileCount());
 
         // making the search call
         Set<Integer> result = invertedIndex.search(Query);
@@ -33,7 +35,7 @@ public class Main {
         // printing files matching the search query
         if (result !=null) {
             for (int index : result) {
-                System.out.println(Read_Files.get_files().get(index));
+                System.out.println(Read_Files.getFiles().get(index));
             }
         }
 
