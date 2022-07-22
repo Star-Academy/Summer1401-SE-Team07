@@ -1,4 +1,4 @@
-package se01;
+package textSearch;
 
 import java.util.ArrayList;
 import java.util.List;

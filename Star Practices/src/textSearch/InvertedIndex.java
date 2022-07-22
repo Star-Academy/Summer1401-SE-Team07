@@ -1,4 +1,4 @@
-package se01;
+package textSearch;
 
 import java.util.Map;
 import java.util.Set;
@@ -45,33 +45,33 @@ public class InvertedIndex {
 
     public Set<Integer> applySearchQuery(Set<String> mandatory, Set<String> optional, Set<String> exclude) {
         // Applies the search query to include all mandatory words, include at least one optional word, and exclude all exclude words.
-        Set<Integer> result = new HashSet<>();
-        Set<Integer> opt_result = new HashSet<>();
+        Set<Integer> finalQueryDocs = new HashSet<>();
+        Set<Integer> optionalWordsDocs = new HashSet<>();
         for (int i = 0; i < m_fileCount; i++) {
-            result.add(i);
+            finalQueryDocs.add(i);
         }
         
         // going through all the sets and applying appropriate search query
         for (String word : mandatory) {
             Set<Integer> docs = index.get(word);
             if (docs != null)
-                result.retainAll(docs);
+                finalQueryDocs.retainAll(docs);
         }
         for (String word : exclude) {
             Set<Integer> docs = index.get(word);
             if (docs != null)
-                result.removeAll(docs);
+                finalQueryDocs.removeAll(docs);
         }
         for (String word : optional) {
             Set<Integer> docs = index.get(word);
             if (docs != null)
-                opt_result.addAll(docs);
+                optionalWordsDocs.addAll(docs);
         }
         // checking for empty optional queries
         if (!optional.isEmpty()) {
-            result.retainAll(opt_result);
+            finalQueryDocs.retainAll(optionalWordsDocs);
         }
-        return result;
+        return finalQueryDocs;
     }
 
     public Set<Integer> search(String Query) {

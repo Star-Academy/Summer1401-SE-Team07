@@ -1,7 +1,8 @@
-package se01;
+package textSearch;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -9,23 +10,23 @@ import java.util.Set;
 public class Main {
 
     public static void main(String[] args) {
-        Scanner scn = new Scanner(System.in);
+        Scanner inputScanner = new Scanner(System.in);
 
         // getting the folder and query from user
         System.out.println("please enter a folder to search at (leave blank for default folder):");
-        String folder_path = scn.nextLine();
-        if (folder_path == "") {
+        String folder_path = inputScanner.nextLine();
+        if (folder_path.isBlank()) {
             folder_path = Paths.get(".", "Summer1401-SE-Team07", "Files").toString(); // creating the default folder path
         }
         File mainDir = new File(folder_path);
 
         System.out.println("please enter a query to search for:");
-        String Query = scn.nextLine();
+        String Query = inputScanner.nextLine();
 
 
         // creating the tokens and revers index
         FileReaderClass Read_Files = new FileReaderClass(mainDir);
-        var words = Read_Files.getWords();
+        List<Pair<String, Integer>> words = Read_Files.getWords();
         Tokenizer tokenizer = new Tokenizer(words);
         InvertedIndex invertedIndex = new InvertedIndex(tokenizer.getTokens(), Read_Files.getFileCount());
 
@@ -39,7 +40,7 @@ public class Main {
             }
         }
 
-        scn.close();
+        inputScanner.close();
     }
 
 

@@ -1,4 +1,4 @@
-package se01;
+package textSearch;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,7 +9,6 @@ import java.util.List;
 
 public class FileReaderClass {
 
-    // private List<Pair<String, Integer>> words = new ArrayList<Pair<String, Integer>>();
     private List<Pair<String,Integer>> words = new ArrayList<Pair<String,Integer>>();
 
     private List<File> m_files;
