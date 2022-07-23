@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
-
 public class Main {
 
     public static void main(String[] args) {
@@ -16,13 +15,12 @@ public class Main {
         System.out.println("please enter a folder to search at (leave blank for default folder):");
         String folder_path = inputScanner.nextLine();
         if (folder_path.isBlank()) {
-            folder_path = Paths.get(".", "Summer1401-SE-Team07", "Files").toString(); // creating the default folder path
+            folder_path = Paths.get(".", "Summer1401-SE-Team07", "Files").toString(); // creating the default folder
         }
         File mainDir = new File(folder_path);
 
         System.out.println("please enter a query to search for:");
         String Query = inputScanner.nextLine();
-
 
         // creating the tokens and revers index
         FileReaderClass Read_Files = new FileReaderClass(mainDir);
@@ -32,9 +30,9 @@ public class Main {
 
         // making the search call
         Set<Integer> result = invertedIndex.search(Query);
-        
+
         // printing files matching the search query
-        if (result !=null) {
+        if (result != null) {
             for (int index : result) {
                 System.out.println(Read_Files.getFiles().get(index));
             }
@@ -42,6 +40,5 @@ public class Main {
 
         inputScanner.close();
     }
-
 
 }

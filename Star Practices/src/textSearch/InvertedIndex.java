@@ -48,15 +48,15 @@ public class InvertedIndex {
             Set<Integer> docs = index.get(word);
             if (docs == null)
                 continue;
-            switch(mode) {
-                case WordSetMode.MANDATORY:
-                    result.retainAll(docs);
+            switch (mode) {
+                case MANDATORY:
+                    workingSet.retainAll(docs);
                     break;
-                case WordSetMode.OPTIONAL:
-                    result.addAll(docs);
+                case OPTIONAL:
+                    workingSet.addAll(docs);
                     break;
-                case WordSetMode.EXCLUDE:
-                    result.removeAll(docs);
+                case EXCLUDE:
+                    workingSet.removeAll(docs);
                     break;
             }
         }
@@ -64,18 +64,19 @@ public class InvertedIndex {
     }
 
     public Set<Integer> applySearchQuery(Set<String> mandatory, Set<String> optional, Set<String> exclude) {
-        // Applies the search query to include all mandatory words, include at least one optional word, and exclude all exclude words.
+        // Applies the search query to include all mandatory words, include at least one
+        // optional word, and exclude all exclude words.
         Set<Integer> finalQueryDocs = new HashSet<>();
         Set<Integer> optionalWordsDocs = new HashSet<>();
         for (int i = 0; i < m_fileCount; i++) {
             finalQueryDocs.add(i);
         }
-        
+
         // going through all the sets and applying appropriate search query
         finalQueryDocs = getWordsDocs(finalQueryDocs, mandatory, WordSetMode.MANDATORY);
         finalQueryDocs = getWordsDocs(finalQueryDocs, optional, WordSetMode.EXCLUDE);
         optionalWordsDocs = getWordsDocs(optionalWordsDocs, exclude, WordSetMode.OPTIONAL);
-        
+
         // checking for empty optional queries
         if (!optional.isEmpty()) {
             finalQueryDocs.retainAll(optionalWordsDocs);
@@ -91,7 +92,7 @@ public class InvertedIndex {
         String[] words = Query.split(" ");
         for (String word : words) {
             // Flag for mandatory, optional or exclude word and add to the respective set
-            if(stopWords.contains(word)){
+            if (stopWords.contains(word)) {
                 continue;
             }
             word = word.toUpperCase();
