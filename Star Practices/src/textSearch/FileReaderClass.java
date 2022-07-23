@@ -41,7 +41,7 @@ public class FileReaderClass {
     }
 
 
-    public List<File> ReadDirectory(File directory) {
+    private List<File> ReadDirectory(File directory) {
         // Returns a list of text files in the directory
         File[] files = directory.listFiles();
         return Arrays.asList(files);

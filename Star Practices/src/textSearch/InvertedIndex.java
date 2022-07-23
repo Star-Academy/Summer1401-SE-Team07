@@ -43,6 +43,26 @@ public class InvertedIndex {
         }
     }
 
+    private Set<Integer> getWordsDocs(Set<Integer> workingSet, Set<String> words, WordSetMode mode) {
+        for (String word : words) {
+            Set<Integer> docs = index.get(word);
+            if (docs == null)
+                continue;
+            switch(mode) {
+                case WordSetMode.MANDATORY:
+                    result.retainAll(docs);
+                    break;
+                case WordSetMode.OPTIONAL:
+                    result.addAll(docs);
+                    break;
+                case WordSetMode.EXCLUDE:
+                    result.removeAll(docs);
+                    break;
+            }
+        }
+        return workingSet;
+    }
+
     public Set<Integer> applySearchQuery(Set<String> mandatory, Set<String> optional, Set<String> exclude) {
         // Applies the search query to include all mandatory words, include at least one optional word, and exclude all exclude words.
         Set<Integer> finalQueryDocs = new HashSet<>();
@@ -52,21 +72,10 @@ public class InvertedIndex {
         }
         
         // going through all the sets and applying appropriate search query
-        for (String word : mandatory) {
-            Set<Integer> docs = index.get(word);
-            if (docs != null)
-                finalQueryDocs.retainAll(docs);
-        }
-        for (String word : exclude) {
-            Set<Integer> docs = index.get(word);
-            if (docs != null)
-                finalQueryDocs.removeAll(docs);
-        }
-        for (String word : optional) {
-            Set<Integer> docs = index.get(word);
-            if (docs != null)
-                optionalWordsDocs.addAll(docs);
-        }
+        finalQueryDocs = getWordsDocs(finalQueryDocs, mandatory, WordSetMode.MANDATORY);
+        finalQueryDocs = getWordsDocs(finalQueryDocs, optional, WordSetMode.EXCLUDE);
+        optionalWordsDocs = getWordsDocs(optionalWordsDocs, exclude, WordSetMode.OPTIONAL);
+        
         // checking for empty optional queries
         if (!optional.isEmpty()) {
             finalQueryDocs.retainAll(optionalWordsDocs);
