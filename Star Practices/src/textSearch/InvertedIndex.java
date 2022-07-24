@@ -98,8 +98,7 @@ public class InvertedIndex {
                 case EXCLUDE   -> exclude.add(flagged.getValue());
             }
         }
-        Set<Integer> result = applySearchQuery(mandatory, optional, exclude);
 
-        return result;
+        return applySearchQuery(mandatory, optional, exclude);
     }
 }

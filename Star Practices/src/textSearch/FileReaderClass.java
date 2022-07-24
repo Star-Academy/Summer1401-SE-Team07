@@ -19,8 +19,8 @@ public class FileReaderClass {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-                for (String _word : line.split("\\W+")) {
-                    words.add(_word);
+                for (String word : line.split("\\W+")) {
+                    words.add(word);
                 }
             }
             reader.close();
