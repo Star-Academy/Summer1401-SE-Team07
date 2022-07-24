@@ -3,10 +3,7 @@ namespace StudentsDataManager.FileManager;
 using StudentsDataManager.Objects;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 public class FileReader
 {
@@ -23,13 +20,17 @@ public class FileReader
 
     public List<Student> ReadStudentsFromJson(string json)
     {
-        List<Student> students = JsonSerializer.Deserialize<List<Student>>(json);
-        return students;
+        var students = JsonSerializer.Deserialize<List<Student>>(json);
+        if (students is not null)
+            return students;
+        return new List<Student>();
     }
 
     public List<Grade> ReadGradesFromJson(string json)
     {
-        List<Grade> grades = JsonSerializer.Deserialize<List<Grade>>(json);
-        return grades;
+        var grades = JsonSerializer.Deserialize<List<Grade>>(json);
+        if (grades is not null)
+            return grades;
+        return new List<Grade>();
     }
 }

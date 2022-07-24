@@ -9,7 +9,15 @@ public class Student
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public List<Lesson> Lessons { get; set; }
-    public double AverageMark { get; set; }
+    public double AverageMark
+    {
+        get
+        {
+            if (this.Lessons.Count > 0)
+                return this.Lessons.Average(x => x.Score);
+            return 0;
+        }
+    }
 
     public Student(string firstName, string lastName)
     {
@@ -17,9 +25,9 @@ public class Student
         this.LastName = lastName;
         this.Lessons = new List<Lesson>();
     }
-    
+
     public override string ToString()
     {
-        return $"{this.StudentNumber}: {this.FirstName} {this.LastName} {this.AverageMark}";
+        return $"[{this.StudentNumber}] {this.FirstName} {this.LastName} {this.AverageMark}";
     }
 }
