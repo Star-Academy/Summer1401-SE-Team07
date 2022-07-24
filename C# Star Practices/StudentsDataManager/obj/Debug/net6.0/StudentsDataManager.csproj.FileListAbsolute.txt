@@ -1,0 +1,17 @@
+D:\Taha-PC\Documents\Summer1401-SE-Team07\C# Star Practices\StudentsDataManager\bin\Debug\net6.0\StudentsDataManager.exe
+D:\Taha-PC\Documents\Summer1401-SE-Team07\C# Star Practices\StudentsDataManager\bin\Debug\net6.0\StudentsDataManager.deps.json
+D:\Taha-PC\Documents\Summer1401-SE-Team07\C# Star Practices\StudentsDataManager\bin\Debug\net6.0\StudentsDataManager.runtimeconfig.json
+D:\Taha-PC\Documents\Summer1401-SE-Team07\C# Star Practices\StudentsDataManager\bin\Debug\net6.0\StudentsDataManager.dll
+D:\Taha-PC\Documents\Summer1401-SE-Team07\C# Star Practices\StudentsDataManager\bin\Debug\net6.0\StudentsDataManager.pdb
+D:\Taha-PC\Documents\Summer1401-SE-Team07\C# Star Practices\StudentsDataManager\bin\Debug\net6.0\System.Text.Json.dll
+D:\Taha-PC\Documents\Summer1401-SE-Team07\C# Star Practices\StudentsDataManager\obj\Debug\net6.0\StudentsDataManager.csproj.AssemblyReference.cache
+D:\Taha-PC\Documents\Summer1401-SE-Team07\C# Star Practices\StudentsDataManager\obj\Debug\net6.0\StudentsDataManager.GeneratedMSBuildEditorConfig.editorconfig
+D:\Taha-PC\Documents\Summer1401-SE-Team07\C# Star Practices\StudentsDataManager\obj\Debug\net6.0\StudentsDataManager.AssemblyInfoInputs.cache
+D:\Taha-PC\Documents\Summer1401-SE-Team07\C# Star Practices\StudentsDataManager\obj\Debug\net6.0\StudentsDataManager.AssemblyInfo.cs
+D:\Taha-PC\Documents\Summer1401-SE-Team07\C# Star Practices\StudentsDataManager\obj\Debug\net6.0\StudentsDataManager.csproj.CoreCompileInputs.cache
+D:\Taha-PC\Documents\Summer1401-SE-Team07\C# Star Practices\StudentsDataManager\obj\Debug\net6.0\StudentsDataManager.csproj.CopyComplete
+D:\Taha-PC\Documents\Summer1401-SE-Team07\C# Star Practices\StudentsDataManager\obj\Debug\net6.0\StudentsDataManager.dll
+D:\Taha-PC\Documents\Summer1401-SE-Team07\C# Star Practices\StudentsDataManager\obj\Debug\net6.0\refint\StudentsDataManager.dll
+D:\Taha-PC\Documents\Summer1401-SE-Team07\C# Star Practices\StudentsDataManager\obj\Debug\net6.0\StudentsDataManager.pdb
+D:\Taha-PC\Documents\Summer1401-SE-Team07\C# Star Practices\StudentsDataManager\obj\Debug\net6.0\StudentsDataManager.genruntimeconfig.cache
+D:\Taha-PC\Documents\Summer1401-SE-Team07\C# Star Practices\StudentsDataManager\obj\Debug\net6.0\ref\StudentsDataManager.dll
