@@ -33,18 +33,13 @@ public class InvertedIndex {
     private Set<Integer> getWordsDocs(Set<Integer> workingSet, Set<String> words, WordSetMode mode) {
         for (String word : words) {
             Set<Integer> docs = index.get(word);
-            if (docs == null)
+            if (docs == null) {
                 continue;
+            }
             switch (mode) {
-                case MANDATORY:
-                    workingSet.retainAll(docs);
-                    break;
-                case OPTIONAL:
-                    workingSet.addAll(docs);
-                    break;
-                case EXCLUDE:
-                    workingSet.removeAll(docs);
-                    break;
+                case MANDATORY -> workingSet.retainAll(docs);
+                case OPTIONAL  -> workingSet.addAll(docs);
+                case EXCLUDE   -> workingSet.removeAll(docs);
             }
         }
         return workingSet;
@@ -76,12 +71,9 @@ public class InvertedIndex {
         WordSetMode mode;
         // Check the first character of the word to determine the mode
         switch (word.charAt(0)) {
-            case '+':
-                mode = WordSetMode.OPTIONAL;
-            case '-':
-                mode = WordSetMode.EXCLUDE;
-            default:
-                mode = WordSetMode.MANDATORY;
+            case '+' -> mode = WordSetMode.OPTIONAL;
+            case '-' -> mode = WordSetMode.EXCLUDE;
+            default  -> mode = WordSetMode.MANDATORY;
         }
         word = splittedWord[splittedWord.length - 1];
         return new Pair<WordSetMode, String>(mode, word);
@@ -94,20 +86,16 @@ public class InvertedIndex {
 
         String[] words = Query.split("\\s+");
         for (String word : words) {
-            // Flag the uppercased word for mandatory, optional or exclude word and add to the respective set
+            // Flag the uppercased word for mandatory, optional or exclude word and add to
+            // the respective set
             if (stopWords.contains(word)) {
                 continue;
             }
             Pair<WordSetMode, String> flagged = flagWord(word.toUpperCase());
             switch (flagged.getKey()) {
-                case MANDATORY:
-                    mandatory.add(flagged.getValue());
-                    break;
-                case OPTIONAL:
-                    optional.add(flagged.getValue());
-                    break;
-                case EXCLUDE:
-                    exclude.add(flagged.getValue());
+                case MANDATORY -> mandatory.add(flagged.getValue());
+                case OPTIONAL  -> optional.add(flagged.getValue());
+                case EXCLUDE   -> exclude.add(flagged.getValue());
             }
         }
         Set<Integer> result = applySearchQuery(mandatory, optional, exclude);
