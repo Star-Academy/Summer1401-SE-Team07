@@ -22,9 +22,22 @@ public class Main {
             folderPath = Paths.get(".", "Summer1401-SE-Team07", "Files").toString(); // creating the default folder
         }
         File mainDir = new File(folderPath);
-
         FileReaderClass Read_Files = new FileReaderClass(mainDir);
         return Read_Files;
+    }
+
+    private static void inputHandler(String folderPath, String query) {
+        // First read the files in the folder
+        FileReaderClass Read_Files = folderReaderHandler(folderPath);
+        // Then generate inverted index object and search in it
+        InvertedIndex invertedIndex = invertedIndexHandler(Read_Files);
+        Set<Integer> result = invertedIndex.search(query);
+        // Printing files matching the search query
+        if (result != null) {
+            for (int index : result) {
+                System.out.println(Read_Files.getFiles().get(index));
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -33,23 +46,11 @@ public class Main {
         // getting the folder and query from user
         System.out.println("please enter a folder to search at (leave blank for default folder):");
         String folderPath = inputScanner.nextLine();
-        FileReaderClass Read_Files = folderReaderHandler(folderPath);
-
-        // getting inverted index object from the handler
-        InvertedIndex invertedIndex = invertedIndexHandler(Read_Files);
 
         System.out.println("please enter a query to search for:");
-        String Query = inputScanner.nextLine();
+        String query = inputScanner.nextLine();
         inputScanner.close();
 
-        // making the search call
-        Set<Integer> result = invertedIndex.search(Query);
-        // printing files matching the search query
-        if (result != null) {
-            for (int index : result) {
-                System.out.println(Read_Files.getFiles().get(index));
-            }
-        }
-
+        inputHandler(folderPath, query);
     }
 }

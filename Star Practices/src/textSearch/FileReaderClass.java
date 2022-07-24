@@ -13,18 +13,28 @@ public class FileReaderClass {
 
     private List<File> m_files;
 
-    private void readFile(File file, int index) {
-        // Reads a file and adds the tokens to the list
+    public static List<String> readFile(File file) {
+        // read a file and return a list of words
+        List<String> words = new ArrayList<String>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             for (String line = reader.readLine(); line != null; line = reader.readLine()) {
                 for (String _word : line.split("\\W+")) {
-                    words.add(new Pair<String, Integer>(_word, index));
+                    words.add(_word);
                 }
             }
             reader.close();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        return words;
+    }
+
+    private void indexFileWords(File file, int index) {
+        // Reads a file and adds the tokens to the list
+        List<String> wordList = readFile(file);
+        for (String word : wordList) {
+            words.add(new Pair<String, Integer>(word, index));
         }
     }
 
@@ -34,8 +44,7 @@ public class FileReaderClass {
         m_files = files;
         for (int i = 0; i < files.size(); i++) {
             File file = files.get(i);
-            readFile(file, i);
-
+            indexFileWords(file, i);
         }
     }
 

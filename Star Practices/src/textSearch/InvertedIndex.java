@@ -2,7 +2,7 @@ package textSearch;
 
 import java.util.Map;
 import java.util.Set;
-import java.util.Arrays;
+import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -10,21 +10,8 @@ import java.util.List;
 public class InvertedIndex {
     // Words that are used too often in english and take too much storage to index,
     // and are practically useless
-    private List<String> stopWords = Arrays.asList("a", "able", "about",
-            "across", "after", "all", "almost", "also", "am", "among", "an",
-            "and", "any", "are", "as", "at", "be", "because", "been", "but",
-            "by", "can", "cannot", "could", "dear", "did", "do", "does",
-            "either", "else", "ever", "every", "for", "from", "get", "got",
-            "had", "has", "have", "he", "her", "hers", "him", "his", "how",
-            "however", "i", "if", "in", "into", "is", "it", "its", "just",
-            "least", "let", "like", "likely", "may", "me", "might", "most",
-            "must", "my", "neither", "no", "nor", "not", "of", "off", "often",
-            "on", "only", "or", "other", "our", "own", "rather", "said", "say",
-            "says", "she", "should", "since", "so", "some", "than", "that",
-            "the", "their", "them", "then", "there", "these", "they", "this",
-            "tis", "to", "too", "twas", "us", "wants", "was", "we", "were",
-            "what", "when", "where", "which", "while", "who", "whom", "why",
-            "will", "with", "would", "yet", "you", "your");
+    File stopWordsFile = new File("Files/stopwords.txt");
+    private List<String> stopWords = FileReaderClass.readFile(stopWordsFile);
 
     private Map<String, Set<Integer>> index = new HashMap<String, Set<Integer>>();
     private int m_fileCount;
@@ -84,26 +71,43 @@ public class InvertedIndex {
         return finalQueryDocs;
     }
 
+    private Pair<WordSetMode, String> flagWord(String word) {
+        String[] splittedWord = word.split("[\\W]+");
+        WordSetMode mode;
+        // Check the first character of the word to determine the mode
+        switch (word.charAt(0)) {
+            case '+':
+                mode = WordSetMode.OPTIONAL;
+            case '-':
+                mode = WordSetMode.EXCLUDE;
+            default:
+                mode = WordSetMode.MANDATORY;
+        }
+        word = splittedWord[splittedWord.length - 1];
+        return new Pair<WordSetMode, String>(mode, word);
+    }
+
     public Set<Integer> search(String Query) {
         Set<String> mandatory = new HashSet<String>();
         Set<String> optional = new HashSet<String>();
         Set<String> exclude = new HashSet<String>();
 
-        String[] words = Query.split(" ");
+        String[] words = Query.split("\\s+");
         for (String word : words) {
-            // Flag for mandatory, optional or exclude word and add to the respective set
+            // Flag the uppercased word for mandatory, optional or exclude word and add to the respective set
             if (stopWords.contains(word)) {
                 continue;
             }
-            word = word.toUpperCase();
-            if (word.startsWith("+")) {
-                word = word.substring(1);
-                optional.add(word);
-            } else if (word.startsWith("-")) {
-                word = word.substring(1);
-                exclude.add(word);
-            } else {
-                mandatory.add(word);
+            Pair<WordSetMode, String> flagged = flagWord(word.toUpperCase());
+            switch (flagged.getKey()) {
+                case MANDATORY:
+                    mandatory.add(flagged.getValue());
+                    break;
+                case OPTIONAL:
+                    optional.add(flagged.getValue());
+                    break;
+                case EXCLUDE:
+                    exclude.add(flagged.getValue());
             }
         }
         Set<Integer> result = applySearchQuery(mandatory, optional, exclude);

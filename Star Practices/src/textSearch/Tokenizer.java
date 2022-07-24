@@ -19,8 +19,9 @@ public class Tokenizer {
     private String trimWord(String _word) {
         // remove blacklist characters
         String word = _word.toUpperCase();
-        for (char c : blacklist)
+        for (char c : blacklist) {
             word = word.replace(c, '\0');
+        }
         return word;
     }
 
