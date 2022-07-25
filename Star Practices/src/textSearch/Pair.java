@@ -1,4 +1,4 @@
-package se01;
+package textSearch;
 
 class Pair<T1, T2> {
     private final T1 key;
