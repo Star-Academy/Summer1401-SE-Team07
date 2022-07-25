@@ -1,5 +1,5 @@
 namespace StudentsDataManager.StudentManager;
-using StudentsDataManager.Objects;
+using StudentsDataManager.Models;
 
 public class StudentDataHandler
 {
@@ -11,7 +11,7 @@ public class StudentDataHandler
         this.Lessons = GenerateLessonList(grades);
         foreach (var grade in grades)
         {
-            addGradeToStudent(grade);
+            AddGradeToStudent(grade);
         }
     }
 
@@ -28,7 +28,7 @@ public class StudentDataHandler
         return lessons;
     }
 
-    private void addGradeToStudent(Grade grade)
+    private void AddGradeToStudent(Grade grade)
     {
         var student = this.Students.FirstOrDefault(x => x.StudentNumber == grade.StudentNumber);
         if (student is not null)
@@ -39,11 +39,6 @@ public class StudentDataHandler
                 student.Lessons.Add(lesson.GetMarkedLesson(grade.Score));
             }
         }
-    }
-
-    public List<Student> GetSortedStudents()
-    {
-        return this.Students.OrderBy(x => x.AverageMark).ToList();
     }
 
     public List<Student> GetTopStudents(int count)

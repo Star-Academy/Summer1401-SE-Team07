@@ -1,4 +1,4 @@
-namespace StudentsDataManager.Objects;
+namespace StudentsDataManager.Models;
 
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,9 @@ public class Student
         get
         {
             if (this.Lessons.Count > 0)
+            {
                 return this.Lessons.Average(x => x.Score);
+            }
             return 0;
         }
     }

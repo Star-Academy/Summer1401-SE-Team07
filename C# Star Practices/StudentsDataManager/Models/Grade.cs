@@ -1,4 +1,4 @@
-namespace StudentsDataManager.Objects;
+namespace StudentsDataManager.Models;
 
 public class Grade
 {

@@ -4,16 +4,17 @@ using StudentsDataManager.StudentManager;
 
 public class MainClass
 {
-    private static string SudentsFilePath = "../../Files/JsonData/students.json";
-    private static string GradesFilesPath = "../../Files/JsonData/scores.json";
+    private const string StudentsFilePath = "../../Files/JsonData/students.json";
+    private const string GradesFilesPath = "../../Files/JsonData/scores.json";
     public static void Main(string[] args)
     {
         // Read students and scores from json file
         FileReader fileReader = new FileReader();
-        string studentsJson = fileReader.ReadFile(SudentsFilePath);
-        var students = fileReader.ReadStudentsFromJson(studentsJson);
-        string gradesJson = fileReader.ReadFile(GradesFilesPath);
-        var scores = fileReader.ReadGradesFromJson(gradesJson);
+        JsonDataSerializer jsonDataSerializer = new JsonDataSerializer();
+        var studentsJson = fileReader.ReadFile(StudentsFilePath);
+        var students = jsonDataSerializer.ReadStudentsFromJson(studentsJson);
+        var gradesJson = fileReader.ReadFile(GradesFilesPath);
+        var scores = jsonDataSerializer.ReadGradesFromJson(gradesJson);
 
         // Create student data handler, and get top 3 students
         StudentDataHandler studentDataHandler = new StudentDataHandler(students, scores);
