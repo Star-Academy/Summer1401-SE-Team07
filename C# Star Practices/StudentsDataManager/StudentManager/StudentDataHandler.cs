@@ -3,16 +3,25 @@ using StudentsDataManager.Models;
 
 public class StudentDataHandler
 {
-    public List<Student> Students { get; private set; }
+    public Dictionary<int, Student> Students { get; private set; }
     public List<Lesson> Lessons { get; private set; }
     public StudentDataHandler(List<Student> students, List<Grade> grades)
     {
-        this.Students = students;
         this.Lessons = GenerateLessonList(grades);
+        this.Students = new Dictionary<int, Student>();
+        foreach (var student in students)
+        {
+            AddStudent(student);
+        }
         foreach (var grade in grades)
         {
             AddGradeToStudent(grade);
         }
+    }
+
+    private Student GetStudentById(int id)
+    {
+        return this.Students[id];
     }
 
     private List<Lesson> GenerateLessonList(List<Grade> grades)
@@ -28,9 +37,9 @@ public class StudentDataHandler
         return lessons;
     }
 
-    private void AddGradeToStudent(Grade grade)
+    public void AddGradeToStudent(Grade grade)
     {
-        var student = this.Students.FirstOrDefault(x => x.StudentNumber == grade.StudentNumber);
+        var student = GetStudentById(grade.StudentNumber);
         if (student is not null)
         {
             var lesson = this.Lessons.FirstOrDefault(x => x.Name == grade.Lesson);
@@ -41,8 +50,13 @@ public class StudentDataHandler
         }
     }
 
+    public void AddStudent(Student student)
+    {
+        this.Students.Add(student.StudentNumber, student);
+    }
+
     public List<Student> GetTopStudents(int count)
     {
-        return this.Students.OrderByDescending(x => x.AverageMark).Take(count).ToList();
+        return this.Students.Values.OrderByDescending(x => x.AverageMark).Take(count).ToList();
     }
 }

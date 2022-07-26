@@ -1,23 +1,29 @@
 ﻿namespace StudentsDataManager;
-using StudentsDataManager.FileManager;
+using StudentsDataManager.DataManager.Serializers;
+using StudentsDataManager.DataManager.Providers;
 using StudentsDataManager.StudentManager;
+using StudentsDataManager.Models;
 
 public class MainClass
 {
     private const string StudentsFilePath = "../../Files/JsonData/students.json";
     private const string GradesFilesPath = "../../Files/JsonData/scores.json";
+
+    private static StudentDataHandler studentDataHandlerInit(string studentsDataPath, string gradesDataPath)
+    {
+        var fileReader = new FileReader();
+        var jsonDataSerializer = new JsonDataSerializer();
+        var studentsJson = fileReader.ReadData(studentsDataPath);
+        var gradesJson = fileReader.ReadData(gradesDataPath);
+        var students = jsonDataSerializer.DeserializeObject<Student>(studentsJson);
+        var scores = jsonDataSerializer.DeserializeObject<Grade>(gradesJson);
+
+        return new StudentDataHandler(students, scores);
+    }
+
     public static void Main(string[] args)
     {
-        // Read students and scores from json file
-        FileReader fileReader = new FileReader();
-        JsonDataSerializer jsonDataSerializer = new JsonDataSerializer();
-        var studentsJson = fileReader.ReadFile(StudentsFilePath);
-        var students = jsonDataSerializer.ReadStudentsFromJson(studentsJson);
-        var gradesJson = fileReader.ReadFile(GradesFilesPath);
-        var scores = jsonDataSerializer.ReadGradesFromJson(gradesJson);
-
-        // Create student data handler, and get top 3 students
-        StudentDataHandler studentDataHandler = new StudentDataHandler(students, scores);
+        var studentDataHandler = studentDataHandlerInit(StudentsFilePath, GradesFilesPath);
         var topStudents = studentDataHandler.GetTopStudents(3);
         foreach (var student in topStudents)
         {

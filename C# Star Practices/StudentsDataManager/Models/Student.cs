@@ -6,14 +6,14 @@ using System.Linq;
 public class Student
 {
     public int StudentNumber { get; init; }
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
+    public string FirstName { get; init; }
+    public string LastName { get; init; }
     public List<Lesson> Lessons { get; set; }
     public double AverageMark
     {
         get
         {
-            if (this.Lessons.Count > 0)
+            if (this.Lessons.Any())
             {
                 return this.Lessons.Average(x => x.Score);
             }
@@ -30,6 +30,6 @@ public class Student
 
     public override string ToString()
     {
-        return $"[{this.StudentNumber}] {this.FirstName} {this.LastName} {this.AverageMark}";
+        return $"[{StudentNumber}] {FirstName} {LastName} {AverageMark}";
     }
 }
