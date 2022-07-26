@@ -1,19 +1,7 @@
 namespace StudentsDataManager.Models;
 
-public class Lesson
+public record Lesson(string Name)
 {
-    public string Name { get; init; }
     public double Score { get; set; }
-    
-    public Lesson(string name)
-    {
-        this.Name = name;
-    }
-
-    public Lesson GetMarkedLesson(double score){
-        return new Lesson(this.Name)
-        {
-            Score = score
-        };
-    }
+    public Lesson GetMarkedLesson(double score) => new Lesson(Name) { Score = score };
 }

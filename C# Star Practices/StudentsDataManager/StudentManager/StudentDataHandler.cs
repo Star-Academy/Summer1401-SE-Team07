@@ -27,14 +27,7 @@ public class StudentDataHandler
     private List<Lesson> GenerateLessonList(List<Grade> grades)
     {
         var lessons = new List<Lesson>();
-        foreach (var grade in grades)
-        {
-            if (!lessons.Any(x => x.Name == grade.Lesson))
-            {
-                lessons.Add(new Lesson(grade.Lesson));
-            }
-        }
-        return lessons;
+        return grades.Select(g => new Lesson(g.Lesson)).Distinct().ToList();
     }
 
     public void AddGradeToStudent(Grade grade)
