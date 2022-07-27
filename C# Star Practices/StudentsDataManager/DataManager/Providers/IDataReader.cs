@@ -1,6 +1,6 @@
 namespace StudentsDataManager.DataManager.Providers
 {
-    public interface IData
+    public interface IDataReader
     {
         string ReadData(string source);
     }
