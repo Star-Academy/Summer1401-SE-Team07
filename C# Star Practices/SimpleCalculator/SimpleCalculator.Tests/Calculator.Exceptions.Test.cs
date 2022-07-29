@@ -10,10 +10,10 @@ public class OperatorExceptionTester
 {
     private const int MaxInt = Int32.MaxValue;
     private const int MinInt = Int32.MinValue;
-    private readonly SumOperator sumOperator = new SumOperator();
-    private readonly SubOperator subOperator = new SubOperator();
-    private readonly MultiplyOperator multOperator = new MultiplyOperator();
-    private readonly DivisionOperator divOperator = new DivisionOperator();
+    private readonly SumOperator _sumOperator = new SumOperator();
+    private readonly SubOperator _subOperator = new SubOperator();
+    private readonly MultiplyOperator _multOperator = new MultiplyOperator();
+    private readonly DivisionOperator _divOperator = new DivisionOperator();
 
 
     [Theory]
@@ -21,7 +21,7 @@ public class OperatorExceptionTester
     [InlineData(MinInt, -1)]
     public void SumOverflowTest(int firstNumber, int secondNumber)
     {
-        Action act = () => this.sumOperator.Calculate(firstNumber, secondNumber);
+        Action act = () => this._sumOperator.Calculate(firstNumber, secondNumber);
         Assert.Throws<Exception>(act);
     }
 
@@ -30,7 +30,7 @@ public class OperatorExceptionTester
     [InlineData(MinInt, 1)]
     public void SubOverflowTest(int firstNumber, int secondNumber)
     {
-        Action act = () => this.subOperator.Calculate(firstNumber, secondNumber);
+        Action act = () => this._subOperator.Calculate(firstNumber, secondNumber);
         Assert.Throws<Exception>(act);
     }
 
@@ -39,7 +39,7 @@ public class OperatorExceptionTester
     [InlineData(MinInt, 2)]
     public void MultOverflowTest(int firstNumber, int secondNumber)
     {
-        Action act = () => this.multOperator.Calculate(firstNumber, secondNumber);
+        Action act = () => this._multOperator.Calculate(firstNumber, secondNumber);
         Assert.Throws<Exception>(act);
     }
 
@@ -48,7 +48,7 @@ public class OperatorExceptionTester
     [InlineData(MinInt, 0.5)]
     public void DivOverflowTest(int firstNumber, int secondNumber)
     {
-        Action act = () => this.divOperator.Calculate(firstNumber, secondNumber);
+        Action act = () => this._divOperator.Calculate(firstNumber, secondNumber);
         Assert.Throws<Exception>(act);
     }
 
@@ -57,7 +57,7 @@ public class OperatorExceptionTester
     [InlineData(13, 0)]
     public void DivByZeroTest(int firstNumber, int secondNumber)
     {
-        Action act = () => this.divOperator.Calculate(firstNumber, secondNumber);
+        Action act = () => this._divOperator.Calculate(firstNumber, secondNumber);
         Assert.Throws<DivideByZeroException>(act);
     }
 }

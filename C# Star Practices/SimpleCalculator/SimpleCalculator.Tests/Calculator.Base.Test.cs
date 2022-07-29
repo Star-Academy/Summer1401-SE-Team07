@@ -7,7 +7,7 @@ using SimpleCalculator.Business.Enums;
 
 public class CalculatorSumTest
 {
-    private readonly Calculator calculator = new Calculator();
+    private readonly Calculator _calculator = new Calculator();
 
     [Theory]
     [InlineData(1, 2, 3)]
@@ -15,7 +15,7 @@ public class CalculatorSumTest
     [InlineData(3, -2, 1)]
     public void Add_TwoNumbers_ReturnsSum(int firstNumber, int secondNumber, int expected)
     {
-        var result = calculator.Calculate(firstNumber, secondNumber, OperatorEnum.sum);
+        var result = _calculator.Calculate(firstNumber, secondNumber, OperatorEnum.sum);
 
         Assert.Equal(expected, result);
     }
@@ -23,7 +23,7 @@ public class CalculatorSumTest
 
 public class CalculatorSubtractTest
 {
-    private readonly Calculator calculator = new Calculator();
+    private readonly Calculator _calculator = new Calculator();
 
     [Theory]
     [InlineData(1, 2, -1)]
@@ -31,7 +31,7 @@ public class CalculatorSubtractTest
     [InlineData(3, 2, 1)]
     public void Subtract_TwoNumbers_ReturnsDifference(int firstNumber, int secondNumber, int expected)
     {
-        var result = calculator.Calculate(firstNumber, secondNumber, OperatorEnum.sub);
+        var result = _calculator.Calculate(firstNumber, secondNumber, OperatorEnum.sub);
 
         Assert.Equal(expected, result);
     }
@@ -39,7 +39,7 @@ public class CalculatorSubtractTest
 
 public class CalculatorMultiplyTest
 {
-    private readonly Calculator calculator = new Calculator();
+    private readonly Calculator _calculator = new Calculator();
     
     [Theory]
     [InlineData(1, 2, 2)]
@@ -48,7 +48,7 @@ public class CalculatorMultiplyTest
     [InlineData(3, 2, 6)]
     public void Multiply_TwoNumbers_ReturnsProduct(int firstNumber, int secondNumber, int expected)
     {
-        var result = calculator.Calculate(firstNumber, secondNumber, OperatorEnum.multiply);
+        var result = _calculator.Calculate(firstNumber, secondNumber, OperatorEnum.multiply);
 
         Assert.Equal(expected, result);
     }
@@ -56,7 +56,7 @@ public class CalculatorMultiplyTest
 
 public class CalculatorDivisonTest
 {
-    private readonly Calculator calculator = new Calculator();
+    private readonly Calculator _calculator = new Calculator();
     
     [Theory]
     [InlineData(1, 2, 0.5)]
@@ -64,7 +64,7 @@ public class CalculatorDivisonTest
     [InlineData(3, 2, 1.5)]
     public void Divide_TwoNumbers_ReturnsQuotient(int firstNumber, int secondNumber, double expected)
     {
-        var result = calculator.Calculate(firstNumber, secondNumber, OperatorEnum.division);
+        var result = _calculator.Calculate(firstNumber, secondNumber, OperatorEnum.division);
 
         Assert.Equal(expected, result);
     }

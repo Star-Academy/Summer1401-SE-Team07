@@ -8,7 +8,7 @@ using SimpleCalculator.Business.OperatorBusiness.Operators;
 
 public class OperatorSumTest
 {
-    private readonly SumOperator sumOperator = new SumOperator();
+    private readonly SumOperator _sumOperator = new SumOperator();
 
     [Theory]
     [InlineData(1, 2, 3)]
@@ -16,14 +16,14 @@ public class OperatorSumTest
     [InlineData(3, -2, 1)]
     public void Add_TwoNumbers_ReturnsSum(int firstNumber, int secondNumber, int expected)
     {
-        var result = this.sumOperator.Calculate(firstNumber, secondNumber);
+        var result = this._sumOperator.Calculate(firstNumber, secondNumber);
         Assert.Equal(expected, result);
     }
 }
 
 public class OperatorSubTest
 {
-    private readonly SubOperator subOperator = new SubOperator();
+    private readonly SubOperator _subOperator = new SubOperator();
 
     [Theory]
     [InlineData(1, 2, -1)]
@@ -31,14 +31,14 @@ public class OperatorSubTest
     [InlineData(3, 2, 1)]
     public void Subtract_TwoNumbers_ReturnsDifference(int firstNumber, int secondNumber, int expected)
     {
-        var result = this.subOperator.Calculate(firstNumber, secondNumber);
+        var result = this._subOperator.Calculate(firstNumber, secondNumber);
         Assert.Equal(expected, result);
     }
 }
 
 public class OperatorMultiplyTest
 {
-    private readonly MultiplyOperator multOperator = new MultiplyOperator();
+    private readonly MultiplyOperator _multOperator = new MultiplyOperator();
     
     [Theory]
     [InlineData(1, 2, 2)]
@@ -47,14 +47,14 @@ public class OperatorMultiplyTest
     [InlineData(3, 2, 6)]
     public void Multiply_TwoNumbers_ReturnsProduct(int firstNumber, int secondNumber, int expected)
     {
-        var result = this.multOperator.Calculate(firstNumber, secondNumber);
+        var result = this._multOperator.Calculate(firstNumber, secondNumber);
         Assert.Equal(expected, result);
     }
 }
 
 public class OperatorDivisonTest
 {
-    private readonly DivisionOperator divOperator = new DivisionOperator();
+    private readonly DivisionOperator _divOperator = new DivisionOperator();
     
     [Theory]
     [InlineData(1, 2, 0.5)]
@@ -62,7 +62,7 @@ public class OperatorDivisonTest
     [InlineData(3, 2, 1.5)]
     public void Divide_TwoNumbers_ReturnsQuotient(int firstNumber, int secondNumber, double expected)
     {
-        var result = this.divOperator.Calculate(firstNumber, secondNumber);
+        var result = this._divOperator.Calculate(firstNumber, secondNumber);
         Assert.Equal(expected, result);
     }
 }
