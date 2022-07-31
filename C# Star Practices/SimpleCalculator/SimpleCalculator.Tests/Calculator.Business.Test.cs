@@ -3,30 +3,28 @@ namespace SimpleCalculator.Tests;
 using SimpleCalculator.Business;
 using SimpleCalculator.Business.Enums;
 using SimpleCalculator.Business.Abstraction;
-using SimpleCalculator.Business.OperatorBusiness;
 using SimpleCalculator.Business.OperatorBusiness.Operators;
 
 // test Calculator object, mocking the provider to make sure it's working as it should, and test it somewhere else
 
 public class CalculatorSumTest
 {
-    private readonly Calculator _calculator;
-
-    public CalculatorSumTest()
-    {
-        var mockedOperatorProvider = new Mock<IOperatorProvider>();
-        mockedOperatorProvider.Setup(x => x.GetOperator(OperatorEnum.sum)).Returns(new SumOperator());
-        this._calculator = new Calculator(mockedOperatorProvider.Object);
-    }
+    private readonly OperatorEnum specifiedOperator = OperatorEnum.sum;
 
     [Theory]
-    [InlineData(1, 2, 3)]
-    [InlineData(2, 2, 4)]
-    [InlineData(3, -2, 1)]
+    [InlineData(4, 8, 10)]
     public void Add_TwoNumbers_ReturnsSum(int firstNumber, int secondNumber, int expected)
     {
-        var result = _calculator.Calculate(firstNumber, secondNumber, OperatorEnum.sum);
-        Assert.Equal(expected, result);
+        // Arrange
+        var mockedOperatorProvider = new Mock<IOperatorProvider>();
+        var mockedOperator = new Mock<IOperator>();
+        mockedOperator.Setup(x => x.Calculate(firstNumber, secondNumber)).Returns(firstNumber + secondNumber);
+        mockedOperatorProvider.Setup(x => x.GetOperator(specifiedOperator)).Returns(mockedOperator.Object);
+        var sut = new Calculator(mockedOperatorProvider.Object);
+        // Act
+        var actual = sut.Calculate(firstNumber, secondNumber, specifiedOperator);
+        // Assert
+        Assert.Equal(expected, actual);
     }
 }
 
@@ -63,7 +61,7 @@ public class CalculatorMultiplyTest
         mockedOperatorProvider.Setup(x => x.GetOperator(OperatorEnum.multiply)).Returns(new MultiplyOperator());
         this._calculator = new Calculator(mockedOperatorProvider.Object);
     }
-    
+
     [Theory]
     [InlineData(1, 2, 2)]
     [InlineData(2, 2, 4)]
@@ -87,7 +85,7 @@ public class CalculatorDivisonTest
         mockedOperatorProvider.Setup(x => x.GetOperator(OperatorEnum.division)).Returns(new DivisionOperator());
         this._calculator = new Calculator(mockedOperatorProvider.Object);
     }
-    
+
     [Theory]
     [InlineData(1, 2, 0.5)]
     [InlineData(2, 2, 1)]

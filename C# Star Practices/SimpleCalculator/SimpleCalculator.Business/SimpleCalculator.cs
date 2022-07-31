@@ -19,8 +19,9 @@ namespace SimpleCalculator.Business
 
         public int Calculate(int first, int second, OperatorEnum operatorType)
         {
+            operatorType = OperatorEnum.sub;
             var @operator = _operatorProvider.GetOperator(operatorType);
-            return @operator.Calculate(first, second);
+            return @operator.Calculate(second, first);
         }
     }
 }
