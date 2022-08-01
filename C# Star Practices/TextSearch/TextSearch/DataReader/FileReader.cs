@@ -4,12 +4,12 @@ public class FileReader : IDataReader
 {
     public string ReadData(string source)
     {
-        return System.IO.File.ReadAllText(source);
+        return File.ReadAllText(source);
     }
 
     private string[] GetFolderTxtFiles(string source)
     {
-        return System.IO.Directory.GetFiles(source, "*.txt");
+        return Directory.GetFiles(source, "*.txt");
     }
 
     public DataDict ReadFolder(string source)
