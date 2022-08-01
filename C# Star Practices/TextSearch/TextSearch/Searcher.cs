@@ -1,9 +1,9 @@
 ﻿namespace TextSearch;
-public class Searcher
+public class Searcher : ISearcher
 {
 
     public Dictionary<string, List<string>> DocNameToTokenizedWords { get; }
-    public Dictionary<string, HashSet<string>> WordToDocName;
+    public Dictionary<string, HashSet<string>> WordToDocName { get; }
 
     public Searcher()
     {

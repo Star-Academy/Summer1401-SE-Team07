@@ -1,5 +1,3 @@
-using TextSearch.DataReader;
-
 namespace TextSearch.Test;
 
 public class SearchQueryTest
@@ -25,6 +23,7 @@ public class SearchQueryTest
     [InlineData("-BasgSF", QueryType.EXCLUDE)]
     public void GetQueryType_QueryWord_ReturnsQueryType(string query, QueryType expected)
     {
-        Assert.Equal(_searchQuery.GetQueryType(query), expected);
+        var actual = _searchQuery.GetQueryType(query);
+        actual.Should().Be(expected);
     }
 }

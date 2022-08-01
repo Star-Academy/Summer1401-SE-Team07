@@ -3,7 +3,7 @@ using TextSearch.DataReader;
 
 namespace TextSearch;
 
-public class Tokenizer
+public class Tokenizer : ITokenizer
 {
     private const string NonWordsRegex = "[^\\w\\s]";
 

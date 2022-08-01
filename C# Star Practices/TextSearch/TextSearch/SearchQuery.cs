@@ -1,23 +1,17 @@
 namespace TextSearch;
 
-public class SearchQuery
+public class SearchQuery : ISearchQuery
 {
     public List<string> MandatoryWords { get; }
     public List<string> OptionalWords { get; }
     public List<string> ExcludeWords { get; }
 
-    public QueryType GetQueryType(string queryWord)
+    public QueryType GetQueryType(string queryWord) => queryWord.Substring(0, 1) switch
     {
-        switch (queryWord.Substring(0, 1))
-        {
-            case "-":
-                return QueryType.EXCLUDE;
-            case "+":
-                return QueryType.OPTIONAL;
-            default:
-                return QueryType.MANDATORY;
-        }
-    }
+        "+" => QueryType.OPTIONAL,
+        "-" => QueryType.EXCLUDE,
+        _ => QueryType.MANDATORY
+    };
 
     public SearchQuery(List<string> tokenizedWords)
     {

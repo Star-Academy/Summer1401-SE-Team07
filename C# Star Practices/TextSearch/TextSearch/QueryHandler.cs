@@ -1,22 +1,17 @@
 namespace TextSearch;
 
-public class QueryHandler
+public class QueryHandler : IQueryHandler
 {
-    private Searcher _searcher;
+    private ISearcher _searcher;
 
-    public void SetIndex(Searcher engine)
+    public QueryHandler(ISearcher engine)
     {
         this._searcher = engine;
     }
 
-    public QueryHandler(Searcher engine)
+    public HashSet<string> HandleQuery(ISearchQuery query)
     {
-        this._searcher = engine;
-    }
-
-    public HashSet<string> HandleQuery(SearchQuery query)
-    {
-        var universalSet = new HashSet<string>(_searcher.DocNameToTokenizedWords.Keys);
+        var universalSet = _searcher.DocNameToTokenizedWords.Keys.ToHashSet();
         var answer = GetIntersectionSet(query.MandatoryWords, universalSet);
         if (query.OptionalWords.Any())
         {
